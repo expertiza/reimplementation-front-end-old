@@ -1,0 +1,48 @@
+{
+  
+        "participants": [
+          {
+            "id": 1,
+            "Username": "abc",
+            "name": "abcdef",
+            "email": "amarthyasa@gmail.com",
+            "fullname": "abcdef",
+            "lastName": "abcdef",
+            "emailPreferences": [],
+            "institution":
+              {"name": "a"},
+            "role": {
+                "name": "Admin"
+              },
+            "parent": {
+                "name": "Admin"
+              },
+              "email_on_review": true,
+              "email_on_submission": false,
+              "email_on_review_of_review": true
+          },
+          {
+            "id": 2,
+            "Username": "abc",
+            "name": "bfghi",
+            "email": "b",
+            "fullname": "b",
+            "lastName": "b",
+            "emailPreferences": [],
+            "institution": "b",
+            "role": {
+              "name": "Admin"
+            },
+            "parent": {
+              "name": "Admin"
+            },
+            "email_on_review": true,
+            "email_on_submission": false,
+            "email_on_review_of_review": true
+          }
+        ]
+
+
+
+  
+}

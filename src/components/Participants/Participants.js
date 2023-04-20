@@ -5,9 +5,9 @@ import useAPI from "../../hooks/use-api";
 import {alertActions} from "../../store/alert";
 import {AddUserIcon} from "../UI/Icons";
 import Table from "../UI/Table/Table";
-// import CreateUser from "./CreateUser";
-// import DeleteUser from "./DeleteUser";
-// import UpdateUser from "./UpdateUser";
+// import CreateParticipant from "./CreateParticipant";
+// import DeleteParticipant from "./DeleteParticipant";
+// import UpdateParticipant from "./UpdateParticipant";
 import {PARTICIPANT_COLUMNS} from "./participantColumns";
 
 const Participants = () => {
@@ -17,10 +17,10 @@ const Participants = () => {
     isLoading,
     data: participantData,
     setData: setParticipantData,
-    sendRequest: fetchUsers,
+    sendRequest: fetchParticipants,
   } = useAPI();
 
-//   const [showCreate, setShowCreate] = useState(false);
+  const [showCreate, setShowCreate] = useState(false);
   const [showUpdate, setShowUpdate] = useState({
     visible: false,
     data: {},
@@ -30,65 +30,66 @@ const Participants = () => {
     data: {},
   });
 
-//   useEffect(() => fetchUsers({url: "/users", method: "get"}), [fetchUsers]);
+  useEffect(() => fetchParticipants({url: "/participants", method: "get"}), [fetchParticipants]);
 
-//   // Error alert
-//   useEffect(() => {
-//     if (error) {
-//       dispatch(alertActions.showAlert({
-//         variant: "danger",
-//         message: error
-//       }));
-//     }
-//   }, [error, dispatch]);
+  // Error alert
+  useEffect(() => {
+    if (error) {
+      dispatch(alertActions.showAlert({
+        variant: "danger",
+        message: error
+      }));
+    }
+  }, [error, dispatch]);
 
-//   const onCreateUserHandler = useCallback(
-//     (user) => {
-//       if (user && user.name) {
-//         console.log(user);
-//         setUserData((prevData) => [...prevData, user]);
-//         dispatch(alertActions.showAlert({
-//           variant: "success",
-//           message: `User ${user.name} created successfully!`
-//         }));
-//       }
-//       setShowCreate(false);
-//     },
-//     [setUserData, dispatch]
-//   );
+  // const onCreateParticipantHandler = useCallback(
+  //   (participant) => {
+  //     console.log(participant)
+  //     if (participant && participant.name) {
+  //       console.log(participant);
+  //       setParticipantData((prevData) => [...prevData, participant]);
+  //       dispatch(alertActions.showAlert({
+  //         variant: "success",
+  //         message: `Participant ${participant.name} created successfully!`
+  //       }));
+  //     }
+  //     setShowCreate(false);
+  //   },
+  //   [setParticipantData, dispatch]
+  // );
 
-//   const onUpdateUserHandler = useCallback(
-//     (updatedUser) => {
-//       if (updatedUser && updatedUser.name !== undefined) {
-//         setUserData((prevData) => [
-//           ...prevData.filter((user) => user.id !== updatedUser.id),
-//           updatedUser,
-//         ]);
-//         dispatch(alertActions.showAlert({
-//           variant: "success",
-//           message: `User ${updatedUser.name} updated successfully!`
-//         }));
-//       }
-//       setShowUpdate({visible: false, data: {}});
-//     },
-//     [setUserData, dispatch]
-//   );
+  // const onUpdateParticipantHandler = useCallback(
+  //   (updatedParticipant) => {
+  //     if (updatedParticipant && updatedParticipant.name !== undefined) {
+  //       setParticipantData((prevData) => [
+  //         ...prevData.filter((participant) => participant.id !== updatedParticipant.id),
+  //         updatedParticipant,
+  //       ]);
+  //       dispatch(alertActions.showAlert({
+  //         variant: "success",
+  //         message: `Participant ${updatedParticipant.name} updated successfully!`
+  //       }));
+  //     }
+  //     setShowUpdate({visible: false, data: {}});
+  //   },
+  //   [setParticipantData, dispatch]
+  // );
 
-//   const onDeleteUserHandler = useCallback(
-//     (id, name, status) => {
-//       if (status) {
-//         setUserData((prevData) => {
-//           return prevData.filter((user) => user.id !== id);
-//         });
-//         dispatch(alertActions.showAlert({
-//           variant: "success",
-//           message: `User ${name} deleted successfully!`
-//         }));
-//       }
-//       setShowDeleteConfirmation({visible: false, data: {}});
-//     },
-//     [setUserData, dispatch]
-//   );
+  // const onDeleteParticipantHandler = useCallback(
+  //   (id, name, status) => {
+  //     if (status) {
+  //       setParticipantData((prevData) => {
+  //         return prevData.filter((participant) => participant.id !== id);
+  //       });
+  //       dispatch(alertActions.showAlert({
+  //         variant: "success",
+  //         message: `Participant ${name} deleted successfully!`
+  //       }));
+  //     }
+  //     setShowDeleteConfirmation({visible: false, data: {}});
+  //   },
+  //   [setParticipantData, dispatch]
+  // );
 
   const onEditHandle = (row) =>
     setShowUpdate({visible: true, data: row.original});
@@ -105,16 +106,42 @@ const Participants = () => {
   );
   const initialState = {hiddenColumns: ["id", "institution"]};
 
-
   return (
     <Container fluid className="px-md-4">
-        <Row className="mt-md-2 mb-md-2">
-         <Col md={{span: 4, offset: 4}}>
-           <h1>Manage Participants</h1>
-         </Col>
-         <hr/>
-        </Row>
-        <Row>
+      <Row className="mt-md-2 mb-md-2">
+        <Col md={{span: 4, offset: 4}}>
+          <h1>Manage Participants</h1>
+        </Col>
+        <hr/>
+      </Row>
+      <Row>
+        <Col md={{span: 1, offset: 11}}>
+          <Button
+            variant="outline-secondary"
+            onClick={() => setShowCreate(true)}
+          >
+            <AddUserIcon width="24" height="24"/>
+          </Button>
+        </Col>
+        {/* {showCreate && <CreateParticipant onClose={onCreateParticipantHandler}/>}
+        {showUpdate.visible && (
+          <UpdateParticipant
+            participantData={showUpdate.data}
+            onClose={onUpdateParticipantHandler}
+          />
+        )}
+        {showDeleteConfirmation.visible && (
+          <DeleteParticipant
+            participantData={showDeleteConfirmation.data}
+            onClose={onDeleteParticipantHandler.bind(
+              null,
+              showDeleteConfirmation.data.id,
+              showDeleteConfirmation.data.name
+            )}
+          />
+        )} */}
+      </Row>
+      <Row>
         <Table
           data={tableData}
           columns={tableColumns}
@@ -122,48 +149,6 @@ const Participants = () => {
         />
       </Row>
     </Container>
-    // <Container fluid className="px-md-4">
-    //   <Row className="mt-md-2 mb-md-2">
-    //     <Col md={{span: 4, offset: 4}}>
-    //       <h1>Manage Users</h1>
-    //     </Col>
-    //     <hr/>
-    //   </Row>
-    //   <Row>
-    //     <Col md={{span: 1, offset: 11}}>
-    //       <Button
-    //         variant="outline-secondary"
-    //         onClick={() => setShowCreate(true)}
-    //       >
-    //         <AddUserIcon width="24" height="24"/>
-    //       </Button>
-    //     </Col>
-    //     {showCreate && <CreateUser onClose={onCreateUserHandler}/>}
-    //     {showUpdate.visible && (
-    //       <UpdateUser
-    //         userData={showUpdate.data}
-    //         onClose={onUpdateUserHandler}
-    //       />
-    //     )}
-    //     {showDeleteConfirmation.visible && (
-    //       <DeleteUser
-    //         userData={showDeleteConfirmation.data}
-    //         onClose={onDeleteUserHandler.bind(
-    //           null,
-    //           showDeleteConfirmation.data.id,
-    //           showDeleteConfirmation.data.name
-    //         )}
-    //       />
-    //     )}
-    //   </Row>
-    //   <Row>
-    //     <Table
-    //       data={tableData}
-    //       columns={tableColumns}
-    //       initialState={initialState}
-    //     />
-    //   </Row>
-    // </Container>
   );
 };
 

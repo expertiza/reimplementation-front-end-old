@@ -19,6 +19,7 @@ const useAPI = () => {
 
     axios(requestConfig)
       .then((response) => {
+        console.log(response)
           // if response if from delete request, response.data is null
           if (response.config && response.config.method === "delete")
             setData([response.status]);
