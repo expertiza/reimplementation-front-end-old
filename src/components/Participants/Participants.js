@@ -5,7 +5,7 @@ import useAPI from "../../hooks/use-api";
 import {alertActions} from "../../store/alert";
 import {AddUserIcon} from "../UI/Icons";
 import Table from "../UI/Table/Table";
-// import CreateParticipant from "./CreateParticipant";
+import CreateParticipant from "./CreateParticipant";
 import DeleteParticipant from "./DeleteParticipant";
 import UpdateParticipant from "./UpdateParticipant";
 import {PARTICIPANT_COLUMNS} from "./participantColumns";
@@ -42,21 +42,21 @@ const Participants = () => {
     }
   }, [error, dispatch]);
 
-  // const onCreateParticipantHandler = useCallback(
-  //   (participant) => {
-  //     console.log(participant)
-  //     if (participant && participant.name) {
-  //       console.log(participant);
-  //       setParticipantData((prevData) => [...prevData, participant]);
-  //       dispatch(alertActions.showAlert({
-  //         variant: "success",
-  //         message: `Participant ${participant.name} created successfully!`
-  //       }));
-  //     }
-  //     setShowCreate(false);
-  //   },
-  //   [setParticipantData, dispatch]
-  // );
+  const onCreateParticipantHandler = useCallback(
+    (participant) => {
+      console.log(participant)
+      if (participant && participant.name) {
+        console.log(participant);
+        setParticipantData((prevData) => [...prevData, participant]);
+        dispatch(alertActions.showAlert({
+          variant: "success",
+          message: `Participant ${participant.name} created successfully!`
+        }));
+      }
+      setShowCreate(false);
+    },
+    [setParticipantData, dispatch]
+  );
 
   const onUpdateParticipantHandler = useCallback(
     (updatedParticipant) => {
@@ -123,7 +123,7 @@ const Participants = () => {
             <AddUserIcon width="24" height="24"/>
           </Button>
         </Col>
-        {/* {showCreate && <CreateParticipant onClose={onCreateParticipantHandler}/>} */}
+        {showCreate && <CreateParticipant onClose={onCreateParticipantHandler}/>}
         {showUpdate.visible && (
           <UpdateParticipant
             participantData={showUpdate.data}

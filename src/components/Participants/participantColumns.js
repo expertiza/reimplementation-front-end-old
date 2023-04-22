@@ -1,7 +1,7 @@
 import {Fragment} from "react";
 import {Button} from "react-bootstrap";
 import {Link} from "react-router-dom";
-import {EditIcon, RemoveParticipantIcon} from "../UI/Icons";
+import {EditIcon, RemoveUserIcon} from "../UI/Icons";
 
 export const PARTICIPANT_COLUMNS = (handleDelete, handleEdit) => [
   {
@@ -26,12 +26,12 @@ export const PARTICIPANT_COLUMNS = (handleDelete, handleEdit) => [
   },
   {
     Header: "Role",
-    accessor: (d) => d.role.name,
+    accessor: (d) => d.role_id.name,
     disableFilters: true,
   },
   {
     Header: "Parent",
-    accessor: (d) => d.parent.name,
+    accessor: (d) => d.parent_id.name,
     disableFilters: true,
   },
   {
@@ -57,7 +57,7 @@ export const PARTICIPANT_COLUMNS = (handleDelete, handleEdit) => [
   {
     id: "institution",
     Header: "Institution",
-    accessor: (d) => d.institution.name,
+    accessor: (d) => d.institution_id.name,
     disableFilters: true,
   },
   {
@@ -79,7 +79,7 @@ export const PARTICIPANT_COLUMNS = (handleDelete, handleEdit) => [
             className="ms-sm-2"
             onClick={() => handleDelete(row)}
           >
-            <RemoveParticipantIcon/>
+            <RemoveUserIcon/>
           </Button>
         </Fragment>
       );

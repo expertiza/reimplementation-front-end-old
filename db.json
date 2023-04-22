@@ -40,30 +40,25 @@
       "lastName": "abcdef",
       "emailPreferences": [],
       "institution": "1",
-      "role": "1",
-      "parent": "1",
+      "role_id": "1",
+      "parent_id": "1",
       "email_on_review": true,
       "email_on_submission": false,
       "email_on_review_of_review": false,
-      "role_id": "2",
-      "institution_id": "1",
-      "parent_id": null
+      "institution_id": "1"
     },
     {
-      "id": 2,
-      "Username": "abc",
-      "name": "bfghi",
-      "email": "b",
-      "fullname": "b,c",
-      "firstName": "b",
-      "lastName": "b",
-      "emailPreferences": [],
-      "institution": "1",
-      "role": "1",
-      "parent": "1",
+      "name": "bcdgf",
+      "email": "bac@gmail.com",
+      "fullname": "dac, bac",
+      "role_id": "1",
+      "institution_id": "2",
+      "parent_id": "1",
       "email_on_review": true,
       "email_on_submission": false,
-      "email_on_review_of_review": true
+      "email_on_review_of_review": false,
+      "apiId": "v1",
+      "id": 5
     }
   ],
   "participants": [
@@ -77,30 +72,12 @@
       "lastName": "abcdef",
       "emailPreferences": [],
       "institution": "1",
-      "role": "1",
-      "parent": "1",
+      "role_id": "1",
       "email_on_review": true,
       "email_on_submission": false,
       "email_on_review_of_review": true,
-      "role_id": "1",
-      "institution_id": "2",
-      "parent_id": null
-    },
-    {
-      "id": 2,
-      "Username": "abc",
-      "name": "bfghi",
-      "email": "b",
-      "fullname": "b,c",
-      "firstName": "b",
-      "lastName": "b",
-      "emailPreferences": [],
-      "institution": "1",
-      "role": "1",
-      "parent": "1",
-      "email_on_review": true,
-      "email_on_submission": false,
-      "email_on_review_of_review": true
+      "institution_id": "1",
+      "parent_id": "1"
     }
   ]
 }

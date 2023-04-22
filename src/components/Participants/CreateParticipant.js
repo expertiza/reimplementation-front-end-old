@@ -12,23 +12,15 @@ import {emailOptions, transformInstitutionsResponse, transformRolesResponse, tra
 
 // Get the logged-in participant from the session
 const loggedInParticipant = "1";
-const initialValues = (participant) => {
-  const [lastName, firstName] = participant.fullname.split(",");
-  const emailPreferences = [
-    "email_on_review",
-    "email_on_review_of_review",
-    "email_on_submission",
-  ].filter((pref) => participant[pref]);
 
-  return {
-    name: participant.name,
-    email: participant.email,
-    firstName: firstName.trim(),
-    lastName: lastName.trim(),
-    emailPreferences: emailPreferences,
-    institution: participant.institution_id.id ? participant.institution_id.id : "",
-    role: participant.role_id.id,
-  };
+const initialValues = {
+  name: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  emailPreferences: [],
+  institution: "",
+  role: "",
 };
 
 const validationSchema = Yup.object({
@@ -44,16 +36,16 @@ const validationSchema = Yup.object({
   institution: Yup.string().required("Required").nonNullable(),
 });
 
-const UpdateParticipant = ({participantData, onClose}) => {
+const CreateParticipant = ({onClose}) => {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(true);
   const {data: roles, sendRequest: fetchRoles} = useAPI();
   const {data: institutions, sendRequest: fetchInstitutions} = useAPI();
   const {
-    data: updatedParticipant,
+    data: createdParticipant,
     error: participantError,
-    sendRequest: updateParticipant,
+    sendRequest: createParticipant,
   } = useAPI();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchRoles({url: "/roles", transformResponse: transformRolesResponse});
@@ -63,29 +55,26 @@ const UpdateParticipant = ({participantData, onClose}) => {
     });
   }, [fetchRoles, fetchInstitutions]);
 
-  // Close the modal if the participant is updated successfully and pass the updated participant to the parent component
-  useEffect(() => {
-    if (updatedParticipant.length > 0) {
-      console.log("participant updated");
-      onClose(updatedParticipant[0]);
-      setShow(false);
-    }
-  }, [participantError, updatedParticipant, onClose]);
-
   useEffect(() => {
     if (participantError) {
       dispatch(alertActions.showAlert({
         variant: "danger",
-        message: participantError,
+        message: participantError
       }));
     }
   }, [participantError, dispatch]);
 
+  useEffect(() => {
+    if (createdParticipant.length > 0) {
+      setShow(false);
+      onClose(createdParticipant[0]);
+    }
+  }, [participantError, createdParticipant, onClose]);
+
   const onSubmit = (values, submitProps) => {
-    const participantId = participantData.id;
-    updateParticipant({
-      url: `/participants/${participantId}`,
-      method: "patch",
+    createParticipant({
+      url: "/participants",
+      method: "post",
       data: {...values, parent: loggedInParticipant},
       transformRequest: transformParticipantRequest,
     });
@@ -107,16 +96,14 @@ const UpdateParticipant = ({participantData, onClose}) => {
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Update Participant</Modal.Title>
+        <Modal.Title>Create Participant</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {participantError && <p className="text-danger">{participantError}</p>}
         <Formik
-          initialValues={initialValues(participantData)}
+          initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
           validateOnChange={false}
-          enableReinitialize={true}
         >
           {(formik) => {
             return (
@@ -133,7 +120,6 @@ const UpdateParticipant = ({participantData, onClose}) => {
                   controlId="participant-name"
                   label="Participantname"
                   name="name"
-                  disabled={true}
                   inputGroupPrepend={
                     <InputGroup.Text id="participant-name-prep">@</InputGroup.Text>
                   }
@@ -153,6 +139,7 @@ const UpdateParticipant = ({participantData, onClose}) => {
                   />
                 </Row>
                 <FormInput controlId="participant-email" label="Email" name="email"/>
+
                 <FormCheckboxGroup
                   controlId="email-pref"
                   label="Email Preferences"
@@ -162,7 +149,6 @@ const UpdateParticipant = ({participantData, onClose}) => {
                 <FormSelect
                   controlId="participant-institution"
                   name="institution"
-                  disabled={participantData.institution_id.id}
                   options={institutions}
                   inputGroupPrepend={
                     <InputGroup.Text id="participant-inst-prep">
@@ -182,7 +168,7 @@ const UpdateParticipant = ({participantData, onClose}) => {
                       !(formik.isValid && formik.dirty) || formik.isSubmitting
                     }
                   >
-                    Update Participant
+                    Create Participant
                   </Button>
                 </Modal.Footer>
               </Form>
@@ -194,4 +180,4 @@ const UpdateParticipant = ({participantData, onClose}) => {
   );
 };
 
-export default UpdateParticipant;
+export default CreateParticipant;
