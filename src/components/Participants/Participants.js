@@ -6,8 +6,8 @@ import {alertActions} from "../../store/alert";
 import {AddUserIcon} from "../UI/Icons";
 import Table from "../UI/Table/Table";
 // import CreateParticipant from "./CreateParticipant";
-// import DeleteParticipant from "./DeleteParticipant";
-// import UpdateParticipant from "./UpdateParticipant";
+import DeleteParticipant from "./DeleteParticipant";
+import UpdateParticipant from "./UpdateParticipant";
 import {PARTICIPANT_COLUMNS} from "./participantColumns";
 
 const Participants = () => {
@@ -58,38 +58,38 @@ const Participants = () => {
   //   [setParticipantData, dispatch]
   // );
 
-  // const onUpdateParticipantHandler = useCallback(
-  //   (updatedParticipant) => {
-  //     if (updatedParticipant && updatedParticipant.name !== undefined) {
-  //       setParticipantData((prevData) => [
-  //         ...prevData.filter((participant) => participant.id !== updatedParticipant.id),
-  //         updatedParticipant,
-  //       ]);
-  //       dispatch(alertActions.showAlert({
-  //         variant: "success",
-  //         message: `Participant ${updatedParticipant.name} updated successfully!`
-  //       }));
-  //     }
-  //     setShowUpdate({visible: false, data: {}});
-  //   },
-  //   [setParticipantData, dispatch]
-  // );
+  const onUpdateParticipantHandler = useCallback(
+    (updatedParticipant) => {
+      if (updatedParticipant && updatedParticipant.name !== undefined) {
+        setParticipantData((prevData) => [
+          ...prevData.filter((participant) => participant.id !== updatedParticipant.id),
+          updatedParticipant,
+        ]);
+        dispatch(alertActions.showAlert({
+          variant: "success",
+          message: `Participant ${updatedParticipant.name} updated successfully!`
+        }));
+      }
+      setShowUpdate({visible: false, data: {}});
+    },
+    [setParticipantData, dispatch]
+  );
 
-  // const onDeleteParticipantHandler = useCallback(
-  //   (id, name, status) => {
-  //     if (status) {
-  //       setParticipantData((prevData) => {
-  //         return prevData.filter((participant) => participant.id !== id);
-  //       });
-  //       dispatch(alertActions.showAlert({
-  //         variant: "success",
-  //         message: `Participant ${name} deleted successfully!`
-  //       }));
-  //     }
-  //     setShowDeleteConfirmation({visible: false, data: {}});
-  //   },
-  //   [setParticipantData, dispatch]
-  // );
+  const onDeleteParticipantHandler = useCallback(
+    (id, name, status) => {
+      if (status) {
+        setParticipantData((prevData) => {
+          return prevData.filter((participant) => participant.id !== id);
+        });
+        dispatch(alertActions.showAlert({
+          variant: "success",
+          message: `Participant ${name} deleted successfully!`
+        }));
+      }
+      setShowDeleteConfirmation({visible: false, data: {}});
+    },
+    [setParticipantData, dispatch]
+  );
 
   const onEditHandle = (row) =>
     setShowUpdate({visible: true, data: row.original});
@@ -123,7 +123,7 @@ const Participants = () => {
             <AddUserIcon width="24" height="24"/>
           </Button>
         </Col>
-        {/* {showCreate && <CreateParticipant onClose={onCreateParticipantHandler}/>}
+        {/* {showCreate && <CreateParticipant onClose={onCreateParticipantHandler}/>} */}
         {showUpdate.visible && (
           <UpdateParticipant
             participantData={showUpdate.data}
@@ -139,7 +139,7 @@ const Participants = () => {
               showDeleteConfirmation.data.name
             )}
           />
-        )} */}
+        )}
       </Row>
       <Row>
         <Table

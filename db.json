@@ -1,48 +1,106 @@
 {
-  
-        "participants": [
-          {
-            "id": 1,
-            "Username": "abc",
-            "name": "abcdef",
-            "email": "amarthyasa@gmail.com",
-            "fullname": "abcdef",
-            "lastName": "abcdef",
-            "emailPreferences": [],
-            "institution":
-              {"name": "a"},
-            "role": {
-                "name": "Admin"
-              },
-            "parent": {
-                "name": "Admin"
-              },
-              "email_on_review": true,
-              "email_on_submission": false,
-              "email_on_review_of_review": true
-          },
-          {
-            "id": 2,
-            "Username": "abc",
-            "name": "bfghi",
-            "email": "b",
-            "fullname": "b",
-            "lastName": "b",
-            "emailPreferences": [],
-            "institution": "b",
-            "role": {
-              "name": "Admin"
-            },
-            "parent": {
-              "name": "Admin"
-            },
-            "email_on_review": true,
-            "email_on_submission": false,
-            "email_on_review_of_review": true
-          }
-        ]
-
-
-
-  
+  "roles": [
+    {
+      "id": 1,
+      "name": "oneRole"
+    },
+    {
+      "id": 2,
+      "name": "twoRole"
+    }
+  ],
+  "parent": [
+    {
+      "id": 1,
+      "name": "oneRole"
+    },
+    {
+      "id": 2,
+      "name": "twoRole"
+    }
+  ],
+  "institutions": [
+    {
+      "id": 1,
+      "name": "oneInst"
+    },
+    {
+      "id": 2,
+      "name": "twoInst"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "Username": "abc",
+      "name": "abcdef",
+      "email": "amarthyasa@gmail.com",
+      "fullname": "abcdef, abc",
+      "firstName": "abcdef",
+      "lastName": "abcdef",
+      "emailPreferences": [],
+      "institution": "1",
+      "role": "1",
+      "parent": "1",
+      "email_on_review": true,
+      "email_on_submission": false,
+      "email_on_review_of_review": false,
+      "role_id": "2",
+      "institution_id": "1",
+      "parent_id": null
+    },
+    {
+      "id": 2,
+      "Username": "abc",
+      "name": "bfghi",
+      "email": "b",
+      "fullname": "b,c",
+      "firstName": "b",
+      "lastName": "b",
+      "emailPreferences": [],
+      "institution": "1",
+      "role": "1",
+      "parent": "1",
+      "email_on_review": true,
+      "email_on_submission": false,
+      "email_on_review_of_review": true
+    }
+  ],
+  "participants": [
+    {
+      "id": 1,
+      "Username": "abc",
+      "name": "abcdef",
+      "email": "amarthyasa@gmail.com",
+      "fullname": "abcdef, abcd",
+      "firstName": "abcdef",
+      "lastName": "abcdef",
+      "emailPreferences": [],
+      "institution": "1",
+      "role": "1",
+      "parent": "1",
+      "email_on_review": true,
+      "email_on_submission": false,
+      "email_on_review_of_review": true,
+      "role_id": "1",
+      "institution_id": "2",
+      "parent_id": null
+    },
+    {
+      "id": 2,
+      "Username": "abc",
+      "name": "bfghi",
+      "email": "b",
+      "fullname": "b,c",
+      "firstName": "b",
+      "lastName": "b",
+      "emailPreferences": [],
+      "institution": "1",
+      "role": "1",
+      "parent": "1",
+      "email_on_review": true,
+      "email_on_submission": false,
+      "email_on_review_of_review": true
+    }
+  ]
 }
