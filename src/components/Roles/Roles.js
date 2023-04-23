@@ -8,6 +8,7 @@ import Table from "../UI/Table/Table";
 import { ROLES_COLUMNS } from "./roleColumns";
 import CreateRole from "./CreateRole";
 import UpdateRole from "./UpdateRole";
+import DeleteRole from "./DeleteRole";
 import { clearConfigCache } from "prettier";
 
 const Roles = () => {
@@ -80,16 +81,16 @@ const Roles = () => {
     [setRolesData, dispatch]
   );
 
-  const onDeleteInstitutionHandler = useCallback(
+  const onDeleteRoleHandler = useCallback(
     (id, name, status) => {
       if (status) {
         setRolesData((prevData) => {
-          return prevData.filter((institution) => institution.id !== id);
+          return prevData.filter((role) => role.id !== id);
         });
         dispatch(
           alertActions.showAlert({
             variant: "success",
-            message: `Institution ${name} deleted successfully!`,
+            message: `Role ${name} deleted successfully!`,
           })
         );
       }
@@ -140,16 +141,16 @@ const Roles = () => {
             onClose={onUpdateRoleHandler}
           />
         )}
-        {/* {showDeleteConfirmation.visible && (
-          <DeleteInstitution
-            rolesData={showDeleteConfirmation.data}
-            onClose={onDeleteInstitutionHandler.bind(
+        {showDeleteConfirmation.visible && (
+          <DeleteRole
+            roleData={showDeleteConfirmation.data}
+            onClose={onDeleteRoleHandler.bind(
               null,
               showDeleteConfirmation.data.id,
               showDeleteConfirmation.data.name
             )}
           />
-        )} */}
+        )}
       </Row>
       <Row>
         <Table
