@@ -8,7 +8,7 @@ import { alertActions } from "../../store/alert";
 import FormCheckboxGroup from "../UI/Form/FormCheckboxGroup";
 import FormInput from "../UI/Form/FormInput";
 import FormSelect from "../UI/Form/FormSelect";
-import { transformInstitutionsRequest } from "./util";
+import { transformRolesRequest } from "./util";
 
 // Get the logged-in user from the session
 const loggedInUser = null;
@@ -20,43 +20,44 @@ const initialValues = {
 const validationSchema = Yup.object({
   name: Yup.string()
     .required("Required")
-    .min(3, "Institution Name must be at least 3 characters")
-    .max(20, "Institution Name must be at most 20 characters"),
+    .min(3, "Role Name must be at least 3 characters")
+    .max(20, "Role Name must be at most 20 characters"),
 });
 
 const CreateRole = ({ onClose }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
   const {
-    data: createdInstitution,
-    error: institutionError,
-    sendRequest: createInstitution,
+    data: createdRole,
+    error: roleError,
+    sendRequest: createRole,
   } = useAPI();
 
   useEffect(() => {
-    if (institutionError) {
+    if (roleError) {
       dispatch(
         alertActions.showAlert({
           variant: "danger",
-          message: institutionError,
+          message: roleError,
         })
       );
     }
-  }, [institutionError, dispatch]);
+  }, [roleError, dispatch]);
 
   useEffect(() => {
-    if (createdInstitution.length > 0) {
+    if (createdRole.length > 0) {
       setShow(false);
-      onClose(createdInstitution[0]);
+      onClose(createdRole[0]);
     }
-  }, [institutionError, createdInstitution, onClose]);
+  }, [roleError, createdRole, onClose]);
 
+  //TODO - Create operation for Roles?
   const onSubmit = (values, submitProps) => {
-    // createInstitution({
-    //   url: "/institutions",
+    // createRole({
+    //   url: "/roles",
     //   method: "post",
     //   data: { ...values, parent: loggedInUser },
-    //   transformRequest: transformInstitutionsRequest,
+    //   transformRequest: transformRolesRequest,
     // });
     console.log("VALUES", values);
     submitProps.resetForm();
@@ -77,7 +78,7 @@ const CreateRole = ({ onClose }) => {
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Create Institution</Modal.Title>
+        <Modal.Title>Create Role</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Formik
@@ -92,8 +93,8 @@ const CreateRole = ({ onClose }) => {
                 <Row>
                   <FormInput
                     as={Col}
-                    controlId="institution-name"
-                    label="Institution Name"
+                    controlId="role-name"
+                    label="Role Name"
                     name="name"
                   />
                 </Row>
@@ -108,7 +109,7 @@ const CreateRole = ({ onClose }) => {
                       !(formik.isValid && formik.dirty) || formik.isSubmitting
                     }
                   >
-                    Create Institution
+                    Create Role
                   </Button>
                 </Modal.Footer>
               </Form>

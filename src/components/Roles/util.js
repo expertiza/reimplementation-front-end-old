@@ -1,7 +1,7 @@
-export const transformInstitutionsRequest = (values, headers) => {
-  console.log("transformInstitutionsRequest", values, headers);
-  const institution = {
+export const transformRolesRequest = (values, headers) => {
+  console.log("transformRolesRequest", values, headers);
+  const role = {
     name: values.name,
   };
-  return JSON.stringify(institution);
+  return JSON.stringify(role);
 };
