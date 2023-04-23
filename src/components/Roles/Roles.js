@@ -105,11 +105,11 @@ const Roles = () => {
   const onDeleteHandle = (row) =>
     setShowDeleteConfirmation({ visible: true, data: row.original });
 
-  //   const tableColumns = useMemo(
-  //     () => ROLES_COLUMNS(onDeleteHandle, onEditHandle),
-  //     []
-  //   );
-  const tableColumns = ROLES_COLUMNS(onDeleteHandle, onEditHandle);
+  const tableColumns = useMemo(
+    () => ROLES_COLUMNS(onDeleteHandle, onEditHandle),
+    []
+  );
+
   const tableData = useMemo(
     () => (isLoading ? [] : rolesData),
     [rolesData, isLoading]
