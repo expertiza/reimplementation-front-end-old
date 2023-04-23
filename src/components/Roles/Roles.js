@@ -6,6 +6,7 @@ import { alertActions } from "../../store/alert";
 import { AddUserIcon } from "../UI/Icons";
 import Table from "../UI/Table/Table";
 import { ROLES_COLUMNS } from "./roleColumns";
+import CreateRole from "./CreateRole";
 
 const Roles = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,22 @@ const Roles = () => {
   }, [error, dispatch]);
 
   //Create Role Handler
+  const onCreateRoleHandler = useCallback(
+    (institution) => {
+      if (institution && institution.name) {
+        console.log(institution);
+        setRolesData((prevData) => [...prevData, institution]);
+        dispatch(
+          alertActions.showAlert({
+            variant: "success",
+            message: `Institution ${institution.name} created successfully!`,
+          })
+        );
+      }
+      setShowCreate(false);
+    },
+    [setRolesData, dispatch]
+  );
 
   const onUpdateInstitutionHandler = useCallback(
     (updatedInstitution) => {
@@ -113,7 +130,7 @@ const Roles = () => {
             <AddUserIcon width="24" height="24" />
           </Button>
         </Col>
-        {/* {showCreate && <CreateRole onClose={onCreateRoleHandler} />} */}
+        {showCreate && <CreateRole onClose={onCreateRoleHandler} />}
         {/* {showUpdate.visible && (
           <UpdateInstitution
             rolesData={showUpdate.data}
