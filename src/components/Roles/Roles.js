@@ -7,6 +7,8 @@ import { AddUserIcon } from "../UI/Icons";
 import Table from "../UI/Table/Table";
 import { ROLES_COLUMNS } from "./roleColumns";
 import CreateRole from "./CreateRole";
+import UpdateRole from "./UpdateRole";
+import { clearConfigCache } from "prettier";
 
 const Roles = () => {
   const dispatch = useDispatch();
@@ -59,19 +61,17 @@ const Roles = () => {
     [setRolesData, dispatch]
   );
 
-  const onUpdateInstitutionHandler = useCallback(
-    (updatedInstitution) => {
-      if (updatedInstitution && updatedInstitution.name !== undefined) {
+  const onUpdateRoleHandler = useCallback(
+    (updatedRole) => {
+      if (updatedRole && updatedRole.name !== undefined) {
         setRolesData((prevData) => [
-          ...prevData.filter(
-            (institution) => institution.id !== updatedInstitution.id
-          ),
-          updatedInstitution,
+          ...prevData.filter((role) => role.id !== updatedRole.id),
+          updatedRole,
         ]);
         dispatch(
           alertActions.showAlert({
             variant: "success",
-            message: `Institution ${updatedInstitution.name} updated successfully!`,
+            message: `Institution ${updatedRole.name} updated successfully!`,
           })
         );
       }
@@ -98,20 +98,23 @@ const Roles = () => {
     [setRolesData, dispatch]
   );
 
-  const onEditHandle = (row) =>
+  const onEditHandle = (row) => {
     setShowUpdate({ visible: true, data: row.original });
+  };
+
   const onDeleteHandle = (row) =>
     setShowDeleteConfirmation({ visible: true, data: row.original });
 
-  const tableColumns = useMemo(
-    () => ROLES_COLUMNS(onDeleteHandle, onEditHandle),
-    []
-  );
+  //   const tableColumns = useMemo(
+  //     () => ROLES_COLUMNS(onDeleteHandle, onEditHandle),
+  //     []
+  //   );
+  const tableColumns = ROLES_COLUMNS(onDeleteHandle, onEditHandle);
   const tableData = useMemo(
     () => (isLoading ? [] : rolesData),
     [rolesData, isLoading]
   );
-  const initialState = { hiddenColumns: ["id", "institution"] };
+  const initialState = { hiddenColumns: ["id"] };
 
   return (
     <Container fluid className="px-md-4">
@@ -131,12 +134,12 @@ const Roles = () => {
           </Button>
         </Col>
         {showCreate && <CreateRole onClose={onCreateRoleHandler} />}
-        {/* {showUpdate.visible && (
-          <UpdateInstitution
-            rolesData={showUpdate.data}
-            onClose={onUpdateInstitutionHandler}
+        {showUpdate.visible && (
+          <UpdateRole
+            roleData={showUpdate.data}
+            onClose={onUpdateRoleHandler}
           />
-        )} */}
+        )}
         {/* {showDeleteConfirmation.visible && (
           <DeleteInstitution
             rolesData={showDeleteConfirmation.data}

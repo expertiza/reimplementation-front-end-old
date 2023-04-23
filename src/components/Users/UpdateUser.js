@@ -1,18 +1,24 @@
-import {Form, Formik} from "formik";
-import {useEffect, useState} from "react";
-import {Button, Col, InputGroup, Modal, Row} from "react-bootstrap";
-import {useDispatch} from "react-redux";
+import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { Button, Col, InputGroup, Modal, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import useAPI from "../../hooks/use-api";
-import {alertActions} from "../../store/alert";
+import { alertActions } from "../../store/alert";
 import FormCheckboxGroup from "../UI/Form/FormCheckboxGroup";
 import FormInput from "../UI/Form/FormInput";
 import FormSelect from "../UI/Form/FormSelect";
-import {emailOptions, transformInstitutionsResponse, transformRolesResponse, transformUserRequest,} from "./util";
+import {
+  emailOptions,
+  transformInstitutionsResponse,
+  transformRolesResponse,
+  transformUserRequest,
+} from "./util";
 
 // Get the logged-in user from the session
 const loggedInUser = null;
 const initialValues = (user) => {
+  console.log("USer data", user);
   const [lastName, firstName] = user.fullname.split(",");
   const emailPreferences = [
     "email_on_review",
@@ -44,10 +50,10 @@ const validationSchema = Yup.object({
   institution: Yup.string().required("Required").nonNullable(),
 });
 
-const UpdateUser = ({userData, onClose}) => {
+const UpdateUser = ({ userData, onClose }) => {
   const [show, setShow] = useState(true);
-  const {data: roles, sendRequest: fetchRoles} = useAPI();
-  const {data: institutions, sendRequest: fetchInstitutions} = useAPI();
+  const { data: roles, sendRequest: fetchRoles } = useAPI();
+  const { data: institutions, sendRequest: fetchInstitutions } = useAPI();
   const {
     data: updatedUser,
     error: userError,
@@ -56,7 +62,7 @@ const UpdateUser = ({userData, onClose}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetchRoles({url: "/roles", transformResponse: transformRolesResponse});
+    fetchRoles({ url: "/roles", transformResponse: transformRolesResponse });
     fetchInstitutions({
       url: "/institutions",
       transformResponse: transformInstitutionsResponse,
@@ -74,10 +80,12 @@ const UpdateUser = ({userData, onClose}) => {
 
   useEffect(() => {
     if (userError) {
-      dispatch(alertActions.showAlert({
-        variant: "danger",
-        message: userError,
-      }));
+      dispatch(
+        alertActions.showAlert({
+          variant: "danger",
+          message: userError,
+        })
+      );
     }
   }, [userError, dispatch]);
 
@@ -86,7 +94,7 @@ const UpdateUser = ({userData, onClose}) => {
     updateUser({
       url: `/users/${userId}`,
       method: "patch",
-      data: {...values, parent: loggedInUser},
+      data: { ...values, parent: loggedInUser },
       transformRequest: transformUserRequest,
     });
     submitProps.resetForm();
@@ -152,7 +160,7 @@ const UpdateUser = ({userData, onClose}) => {
                     name="lastName"
                   />
                 </Row>
-                <FormInput controlId="user-email" label="Email" name="email"/>
+                <FormInput controlId="user-email" label="Email" name="email" />
                 <FormCheckboxGroup
                   controlId="email-pref"
                   label="Email Preferences"
