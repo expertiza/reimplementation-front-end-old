@@ -4,6 +4,8 @@ import Home from "./components/Layout/Home";
 import RootLayout from "./components/Layout/Root";
 import Users from "./components/Users/Users";
 import Roles from "./components/Roles/Roles";
+import Institutions from "./components/Institutions/Institutions";
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -13,6 +15,7 @@ function App() {
         { index: true, element: <Home /> },
         { path: "users", element: <Users /> },
         { path: "roles", element: <Roles /> },
+        { path: "institutions", element: <Institutions /> },
       ],
     },
   ]);
