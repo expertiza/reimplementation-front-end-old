@@ -63,21 +63,29 @@
   ],
   "participants": [
     {
-      "id": 1,
-      "Username": "abc",
-      "name": "abcdef",
+      "name": "asa",
       "email": "amarthyasa@gmail.com",
-      "fullname": "abcdef, abcd",
-      "firstName": "abcdef",
-      "lastName": "abcdef",
-      "emailPreferences": [],
-      "institution": "1",
-      "role_id": "1",
+      "fullname": "Sivakumar Annu, Amarthya",
+      "role_id": "2",
+      "institution_id": "1",
+      "parent_id": "1",
       "email_on_review": true,
       "email_on_submission": false,
-      "email_on_review_of_review": true,
-      "institution_id": "1",
-      "parent_id": "1"
+      "email_on_review_of_review": false,
+      "id": 4
+    },
+    {
+      "name": "bcdgf",
+      "email": "bac@gmail.com",
+      "fullname": "dac, bac",
+      "role_id": "1",
+      "institution_id": "2",
+      "parent_id": "1",
+      "email_on_review": true,
+      "email_on_submission": false,
+      "email_on_review_of_review": false,
+      "apiId": "v1",
+      "id": 5
     }
   ]
 }
