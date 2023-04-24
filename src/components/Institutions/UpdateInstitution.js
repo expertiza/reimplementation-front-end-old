@@ -1,14 +1,14 @@
-import {Form, Formik} from "formik";
-import {useEffect, useState} from "react";
-import {Button, Col, InputGroup, Modal, Row} from "react-bootstrap";
-import {useDispatch} from "react-redux";
+import { Form, Formik } from "formik";
+import { useEffect, useState } from "react";
+import { Button, Col, InputGroup, Modal, Row } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import useAPI from "../../hooks/use-api";
-import {alertActions} from "../../store/alert";
+import { alertActions } from "../../store/alert";
 import FormCheckboxGroup from "../UI/Form/FormCheckboxGroup";
 import FormInput from "../UI/Form/FormInput";
 import FormSelect from "../UI/Form/FormSelect";
-import {transformInstitutionsRequest} from "./util";
+import { transformInstitutionsRequest } from "./util";
 
 // Get the logged-in user from the session
 const loggedInUser = null;
@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
     .max(20, "Institution Name must be at most 20 characters"),
 });
 
-const UpdateInstitution = ({institutionData, onClose}) => {
+const UpdateInstitution = ({ institutionData, onClose }) => {
   const [show, setShow] = useState(true);
   const {
     data: updatedInstitution,
@@ -34,7 +34,6 @@ const UpdateInstitution = ({institutionData, onClose}) => {
     sendRequest: updateInstitution,
   } = useAPI();
   const dispatch = useDispatch();
-
 
   // Close the modal if the institution is updated successfully and pass the updated institution to the parent component
   useEffect(() => {
@@ -47,10 +46,12 @@ const UpdateInstitution = ({institutionData, onClose}) => {
 
   useEffect(() => {
     if (institutionError) {
-      dispatch(alertActions.showAlert({
-        variant: "danger",
-        message: institutionError,
-      }));
+      dispatch(
+        alertActions.showAlert({
+          variant: "danger",
+          message: institutionError,
+        })
+      );
     }
   }, [institutionError, dispatch]);
 
@@ -59,7 +60,7 @@ const UpdateInstitution = ({institutionData, onClose}) => {
     updateInstitution({
       url: `/institutions/${institutionId}`,
       method: "patch",
-      data: {...values, parent: loggedInUser},
+      data: { ...values, parent: loggedInUser },
       transformRequest: transformInstitutionsRequest,
     });
     submitProps.resetForm();
@@ -98,9 +99,10 @@ const UpdateInstitution = ({institutionData, onClose}) => {
                   controlId="institution-name"
                   label="Institution Name"
                   name="name"
-                  disabled={true}
                   inputGroupPrepend={
-                    <InputGroup.Text id="user-name-prep">@</InputGroup.Text>
+                    <InputGroup.Text id="user-name-prep">
+                      Institution name
+                    </InputGroup.Text>
                   }
                 />
 
