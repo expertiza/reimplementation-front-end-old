@@ -9,7 +9,7 @@ const DeleteRole = ({ roleData, onClose }) => {
   const {
     data: deletedInstitution,
     error: institutionError,
-    sendRequest: deleteInstitution,
+    sendRequest: deleteRole,
   } = useAPI();
   const [show, setShow] = useState(true);
 
@@ -31,11 +31,9 @@ const DeleteRole = ({ roleData, onClose }) => {
     }
   }, [deletedInstitution, onClose]);
 
-  //TODO - Delete role ?
   const deleteHandler = () => {
-    console.log("Deleted");
+    deleteRole({ url: `/roles/${roleData.id}`, method: "DELETE" });
   };
-  // deleteInstitution({url: `/roles/${roleData.id}`, method: "DELETE"});
 
   const closeHandler = () => {
     setShow(false);

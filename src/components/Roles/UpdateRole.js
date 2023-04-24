@@ -56,14 +56,13 @@ const UpdateRole = ({ roleData, onClose }) => {
   }, [roleError, dispatch]);
 
   const onSubmit = (values, submitProps) => {
-    // const institutionId = roleData.id;
-    // updateInstitution({
-    //   url: `/institutions/${institutionId}`,
-    //   method: "patch",
-    //   data: { ...values, parent: loggedInUser },
-    //   transformRequest: transformInstitutionsRequest,
-    // });
-    console.log("Value to be updated", values);
+    const roleId = roleData.id;
+    updateRole({
+      url: `/roles/${roleId}`,
+      method: "patch",
+      data: { ...values, parent: loggedInUser },
+      transformRequest: transformRolesRequest,
+    });
     submitProps.resetForm();
     submitProps.setSubmitting(false);
   };

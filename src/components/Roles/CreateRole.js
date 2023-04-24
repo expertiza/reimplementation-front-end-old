@@ -51,14 +51,13 @@ const CreateRole = ({ onClose }) => {
     }
   }, [roleError, createdRole, onClose]);
 
-  //TODO - Create operation for Roles?
   const onSubmit = (values, submitProps) => {
-    // createRole({
-    //   url: "/roles",
-    //   method: "post",
-    //   data: { ...values, parent: loggedInUser },
-    //   transformRequest: transformRolesRequest,
-    // });
+    createRole({
+      url: "/roles",
+      method: "post",
+      data: { ...values, parent: loggedInUser },
+      transformRequest: transformRolesRequest,
+    });
     console.log("VALUES", values);
     submitProps.resetForm();
     submitProps.setSubmitting(false);
