@@ -33,16 +33,16 @@ const Header = () => {
                   Roles
                 </NavDropdown.Item>
                 <NavDropdown.Divider/>
-                <NavDropdown.Item as={Link} to="institutions">
+                <NavDropdown.Item as={Link} to="/institutions">
                   Institutions
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="instructors">
                   Instructors
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="administrators">
+                <NavDropdown.Item as={Link} to="/administrators">
                   Administrators
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="super_administrators">
+                <NavDropdown.Item as={Link} to="/super_administrators">
                   Super Administrators
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="account_request">

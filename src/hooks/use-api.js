@@ -1,5 +1,5 @@
 import axios from "axios";
-import {useCallback, useState} from "react";
+import { useCallback, useState } from "react";
 
 axios.defaults.baseURL = "http://localhost:3000/api/v1";
 axios.defaults.headers.common["Accept"] = "application/json";
@@ -19,13 +19,14 @@ const useAPI = () => {
 
     axios(requestConfig)
       .then((response) => {
-          // if response if from delete request, response.data is null
-          if (response.config && response.config.method === "delete")
-            setData([response.status]);
-          else
-            setData(Array.isArray(response.data) ? response.data : [response.data])
-        }
-      )
+        // if response if from delete request, response.data is null
+        if (response.config && response.config.method === "delete")
+          setData([response.status]);
+        else
+          setData(
+            Array.isArray(response.data) ? response.data : [response.data]
+          );
+      })
       .catch((err) => {
         if (err.response) {
           const errors = err.response.data;
@@ -51,7 +52,7 @@ const useAPI = () => {
     setIsLoading(false);
   }, []);
 
-  return {data, setData, isLoading, error, sendRequest};
+  return { data, setData, isLoading, error, sendRequest };
 };
 
 export default useAPI;
