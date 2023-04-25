@@ -118,7 +118,7 @@ const CreateParticipant = ({onClose}) => {
                 />
                 <FormInput
                   controlId="participant-name"
-                  label="Participantname"
+                  label="Participant Name"
                   name="name"
                   inputGroupPrepend={
                     <InputGroup.Text id="participant-name-prep">@</InputGroup.Text>
