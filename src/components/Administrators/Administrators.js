@@ -3,11 +3,7 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import useAPI from "../../hooks/use-api";
 import { alertActions } from "../../store/alert";
-// import {AddUserIcon} from "../UI/Icons";
 import Table from "../UI/Table/Table";
-// import CreateUser from "./CreateUser";
-// import DeleteUser from "./DeleteUser";
-// import UpdateUser from "./UpdateUser";
 import { USER_ADMINISTRATOR_COLUMNS } from "./userAdministratorColumns";
 
 const Users = () => {

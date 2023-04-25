@@ -3,7 +3,6 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import useAPI from "../../hooks/use-api";
 import { alertActions } from "../../store/alert";
-import { AddUserIcon } from "../UI/Icons";
 import Table from "../UI/Table/Table";
 import { INSTRUCTORS_COLUMNS } from "./instructorColumns";
 

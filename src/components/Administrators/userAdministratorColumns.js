@@ -1,7 +1,4 @@
-import { Fragment } from "react";
-import { Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { EditIcon, RemoveUserIcon } from "../UI/Icons";
 
 export const USER_ADMINISTRATOR_COLUMNS = () => [
   {
