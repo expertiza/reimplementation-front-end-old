@@ -1,9 +1,9 @@
-import {Fragment} from "react";
-import {Button} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import {EditIcon, RemoveUserIcon} from "../UI/Icons";
+import { Fragment } from "react";
+import { Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { EditIcon, RemoveUserIcon } from "../UI/Icons";
 
-export const USER_ROLE_COLUMNS = () => [
+export const USER_ADMINISTRATOR_COLUMNS = () => [
   {
     Header: "Id",
     accessor: "id",
@@ -12,7 +12,7 @@ export const USER_ROLE_COLUMNS = () => [
   {
     Header: "Username",
     accessor: "name",
-    Cell: ({row}) => (
+    Cell: ({ row }) => (
       <Link to={`/users/${row.original.id}`}> {row.original.name}</Link>
     ),
   },
@@ -24,11 +24,11 @@ export const USER_ROLE_COLUMNS = () => [
     Header: "Email",
     accessor: "email",
   },
-  
+
   {
     id: "institution",
     Header: "Institution",
     accessor: (d) => d.institution.name,
     disableFilters: true,
-  }
+  },
 ];

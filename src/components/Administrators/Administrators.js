@@ -8,7 +8,7 @@ import Table from "../UI/Table/Table";
 // import CreateUser from "./CreateUser";
 // import DeleteUser from "./DeleteUser";
 // import UpdateUser from "./UpdateUser";
-import { USER_ROLE_COLUMNS } from "./userRoleColumns";
+import { USER_ADMINISTRATOR_COLUMNS } from "./userAdministratorColumns";
 
 const Users = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Users = () => {
     }
   }, [error, dispatch]);
 
-  const tableColumns = useMemo(() => USER_ROLE_COLUMNS(), []);
+  const tableColumns = useMemo(() => USER_ADMINISTRATOR_COLUMNS(), []);
   const tableData = useMemo(
     () => (isLoading ? [] : userData),
     [userData, isLoading]
