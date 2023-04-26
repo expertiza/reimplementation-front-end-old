@@ -26,6 +26,28 @@ export const AddUserIcon = () => {
   );
 };
 
+export const AddQuestionnaireIcon = () => {
+  return (
+    <img
+      src={process.env.PUBLIC_URL + "/assets/icons/questionnaire-add.png"}
+      alt="add"
+      width="24px"
+      height="24px"
+    />
+  );
+};
+
+export const RemoveQuestionnaireIcon = () => {
+  return (
+    <img
+      src={process.env.PUBLIC_URL + "/assets/icons/questionnaire-remove.png"}
+      alt="remove"
+      width="16px"
+      height="16px"
+    />
+  );
+};
+
 export const InfoIcon = () => {
   return (
     <img
