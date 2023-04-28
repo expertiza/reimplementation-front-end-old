@@ -54,7 +54,7 @@ const UpdateParticipant = ({participantData, onClose}) => {
     sendRequest: updateParticipant,
   } = useAPI();
   const dispatch = useDispatch();
-
+  // Fetching the roles, institutions that need to be listed on the roles, institutions drop down on the create user form
   useEffect(() => {
     fetchRoles({url: "/roles", transformResponse: transformRolesResponse});
     fetchInstitutions({
@@ -81,6 +81,8 @@ const UpdateParticipant = ({participantData, onClose}) => {
     }
   }, [participantError, dispatch]);
 
+  /* patch request to the API with the updated participant values when onSubmit is called
+  */
   const onSubmit = (values, submitProps) => {
     const participantId = participantData.id;
     updateParticipant({
@@ -109,6 +111,7 @@ const UpdateParticipant = ({participantData, onClose}) => {
       <Modal.Header closeButton>
         <Modal.Title>Update Participant</Modal.Title>
       </Modal.Header>
+       {/* onSubmit is called when Update Participant button on the update Participant form is clicked */}
       <Modal.Body>
         {participantError && <p className="text-danger">{participantError}</p>}
         <Formik

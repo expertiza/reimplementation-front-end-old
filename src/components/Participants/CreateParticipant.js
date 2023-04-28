@@ -10,9 +10,10 @@ import FormInput from "../UI/Form/FormInput";
 import FormSelect from "../UI/Form/FormSelect";
 import {emailOptions, transformInstitutionsResponse, transformRolesResponse, transformParticipantRequest,} from "./util";
 
-// Get the logged-in participant from the session
+
 const loggedInParticipant = "1";
 
+// initial values for the new participant 
 const initialValues = {
   name: "",
   email: "",
@@ -22,7 +23,7 @@ const initialValues = {
   institution: "",
   role: "",
 };
-
+// Validating if the values entered for the new participant are correct
 const validationSchema = Yup.object({
   name: Yup.string()
     .required("Required")
@@ -36,6 +37,7 @@ const validationSchema = Yup.object({
   institution: Yup.string().required("Required").nonNullable(),
 });
 
+
 const CreateParticipant = ({onClose}) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
@@ -47,6 +49,7 @@ const CreateParticipant = ({onClose}) => {
     sendRequest: createParticipant,
   } = useAPI();
 
+  // Fetching the roles, institutions that need to be listed on the roles, institutions drop down on the create user form
   useEffect(() => {
     fetchRoles({url: "/roles", transformResponse: transformRolesResponse});
     fetchInstitutions({
@@ -64,6 +67,7 @@ const CreateParticipant = ({onClose}) => {
     }
   }, [participantError, dispatch]);
 
+  // if the participant was created, onclose is set to the newly created participant
   useEffect(() => {
     if (createdParticipant.length > 0) {
       setShow(false);
@@ -71,6 +75,8 @@ const CreateParticipant = ({onClose}) => {
     }
   }, [participantError, createdParticipant, onClose]);
 
+  /* post request to the API with the new participants values when onSubmit is called
+  */
   const onSubmit = (values, submitProps) => {
     createParticipant({
       url: "/participants",
@@ -98,6 +104,7 @@ const CreateParticipant = ({onClose}) => {
       <Modal.Header closeButton>
         <Modal.Title>Create Participant</Modal.Title>
       </Modal.Header>
+      {/* onSubmit is called when Create Participant button on the create Participant form is clicked */}
       <Modal.Body>
         <Formik
           initialValues={initialValues}
