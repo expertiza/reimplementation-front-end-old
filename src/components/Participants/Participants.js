@@ -42,6 +42,12 @@ const Participants = () => {
     }
   }, [error, dispatch]);
 
+  /* After deleting a participant
+  ParticipantData is reset to include the newly created participant
+  An alert is dispatched to show that the participant was created successfully
+  showCreate.visible is set to false to close the create participant form
+  */
+
   const onCreateParticipantHandler = useCallback(
     (participant) => {
       console.log(participant)
@@ -57,6 +63,12 @@ const Participants = () => {
     },
     [setParticipantData, dispatch]
   );
+
+  /* After updating a participant
+  ParticipantData is reset after removing the previous data of the updated participant and adding the new updated participant
+  An alert is dispatched to show that the participant was updated successfully
+  showUpdate.visible is set to false to close the update participant form
+  */
 
   const onUpdateParticipantHandler = useCallback(
     (updatedParticipant) => {
@@ -75,6 +87,11 @@ const Participants = () => {
     [setParticipantData, dispatch]
   );
 
+  /* After deleting a participant
+  ParticipantData is is returned after removing the deleted participant
+  An alert is dispatched to show that the participant was deleted successfully
+  showDeleteConfirmation.visible is set to false to close the delete participant Modal
+  */
   const onDeleteParticipantHandler = useCallback(
     (id, name, status) => {
       if (status) {
@@ -91,8 +108,15 @@ const Participants = () => {
     [setParticipantData, dispatch]
   );
 
+  /* onEditHandle
+    sets showUpdate.visible to True and sets the row id of the participant that is to be updated when Edit button is clicked
+   */
   const onEditHandle = (row) =>
     setShowUpdate({visible: true, data: row.original});
+
+  /* onDeleteHandle
+    sets showDeleteConfirmation.visible to True and sets the row id of the participant that is to be deleted when Delete button is clicked
+   */
   const onDeleteHandle = (row) =>
     setShowDeleteConfirmation({visible: true, data: row.original});
 
@@ -106,6 +130,12 @@ const Participants = () => {
   );
   const initialState = {hiddenColumns: ["id", "institution"]};
 
+  /* Manage Participants page 
+    Displays the "Manage Participants" title and the table with participant information by default.
+    Displays CreateParticipant form when showCreate is True
+    Displays UpdateParticipant form when showUpdate.visible is True
+    Displays DeleteParticipant Modal when showDeleteConfirmation.visible is True
+  */
   return (
     <Container fluid className="px-md-4">
       <Row className="mt-md-2 mb-md-2">
