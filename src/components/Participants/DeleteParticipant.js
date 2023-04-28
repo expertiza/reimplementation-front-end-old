@@ -11,8 +11,10 @@ const DeleteParticipant = ({participantData, onClose}) => {
     error: participantError,
     sendRequest: deleteParticipant,
   } = useAPI();
+  // show initially set to true
   const [show, setShow] = useState(true);
 
+  // useAPI called with the `/participants/${participantData.id}` URL 
   const deleteHandler = () =>
     deleteParticipant({url: `/participants/${participantData.id}`, method: "DELETE"});
 
@@ -25,6 +27,7 @@ const DeleteParticipant = ({participantData, onClose}) => {
     }
   }, [participantError, dispatch]);
 
+   // if the participant was deleted, onclose is set to the deleted participant
   useEffect(() => {
     if (deletedParticipant.length > 0) {
       setShow(false);
@@ -37,6 +40,7 @@ const DeleteParticipant = ({participantData, onClose}) => {
     onClose();
   };
 
+  // deleteHandler is called with Delete button is clicked and closeHandler is called when Cancel button is clicked
   return (
     <Modal show={show} onHide={closeHandler}>
       <Modal.Header closeButton>
