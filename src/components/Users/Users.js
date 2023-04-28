@@ -43,7 +43,9 @@ const Users = () => {
   }, [error, dispatch]);
 
   const onCreateUserHandler = useCallback(
+    
     (user) => {
+      console.log("hey is thos u");
       if (user && user.name) {
         console.log(user);
         setUserData((prevData) => [...prevData, user]);

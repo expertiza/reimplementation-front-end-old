@@ -8,11 +8,12 @@ import {alertActions} from "../../store/alert";
 import FormCheckboxGroup from "../UI/Form/FormCheckboxGroup";
 import FormInput from "../UI/Form/FormInput";
 import FormSelect from "../UI/Form/FormSelect";
-import {emailOptions, transformInstitutionsResponse, transformRolesResponse, transformUserRequest,} from "./util";
+import {emailOptions, transformInstitutionsResponse, transformRolesResponse, transformParticipantRequest,} from "./util";
 
-// Get the logged-in user from the session
-const loggedInUser = "1";
 
+const loggedInParticipant = "1";
+
+// initial values for the new participant 
 const initialValues = {
   name: "",
   email: "",
@@ -22,13 +23,13 @@ const initialValues = {
   institution: "",
   role: "",
 };
-
+// Validating if the values entered for the new participant are correct
 const validationSchema = Yup.object({
   name: Yup.string()
     .required("Required")
-    .lowercase("Username must be lowercase")
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username must be at most 20 characters"),
+    .lowercase("Participantname must be lowercase")
+    .min(3, "Participantname must be at least 3 characters")
+    .max(20, "Participantname must be at most 20 characters"),
   email: Yup.string().required("Required").email("Invalid email format"),
   firstName: Yup.string().required("Required").nonNullable(),
   lastName: Yup.string().required("Required").nonNullable(),
@@ -36,17 +37,19 @@ const validationSchema = Yup.object({
   institution: Yup.string().required("Required").nonNullable(),
 });
 
-const CreateUser = ({onClose}) => {
+
+const CreateParticipant = ({onClose}) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(true);
   const {data: roles, sendRequest: fetchRoles} = useAPI();
   const {data: institutions, sendRequest: fetchInstitutions} = useAPI();
   const {
-    data: createdUser,
-    error: userError,
-    sendRequest: createUser,
+    data: createdParticipant,
+    error: participantError,
+    sendRequest: createParticipant,
   } = useAPI();
 
+  // Fetching the roles, institutions that need to be listed on the roles, institutions drop down on the create user form
   useEffect(() => {
     fetchRoles({url: "/roles", transformResponse: transformRolesResponse});
     fetchInstitutions({
@@ -56,27 +59,30 @@ const CreateUser = ({onClose}) => {
   }, [fetchRoles, fetchInstitutions]);
 
   useEffect(() => {
-    if (userError) {
+    if (participantError) {
       dispatch(alertActions.showAlert({
         variant: "danger",
-        message: userError
+        message: participantError
       }));
     }
-  }, [userError, dispatch]);
+  }, [participantError, dispatch]);
 
+  // if the participant was created, onclose is set to the newly created participant
   useEffect(() => {
-    if (createdUser.length > 0) {
+    if (createdParticipant.length > 0) {
       setShow(false);
-      onClose(createdUser[0]);
+      onClose(createdParticipant[0]);
     }
-  }, [userError, createdUser, onClose]);
+  }, [participantError, createdParticipant, onClose]);
 
+  /* post request to the API with the new participants values when onSubmit is called
+  */
   const onSubmit = (values, submitProps) => {
-    createUser({
-      url: "/users",
+    createParticipant({
+      url: "/participants",
       method: "post",
-      data: {...values, parent: loggedInUser},
-      transformRequest: transformUserRequest,
+      data: {...values, parent: loggedInParticipant},
+      transformRequest: transformParticipantRequest,
     });
     submitProps.resetForm();
     submitProps.setSubmitting(false);
@@ -96,8 +102,9 @@ const CreateUser = ({onClose}) => {
       backdrop="static"
     >
       <Modal.Header closeButton>
-        <Modal.Title>Create User</Modal.Title>
+        <Modal.Title>Create Participant</Modal.Title>
       </Modal.Header>
+      {/* onSubmit is called when Create Participant button on the create Participant form is clicked */}
       <Modal.Body>
         <Formik
           initialValues={initialValues}
@@ -109,7 +116,7 @@ const CreateUser = ({onClose}) => {
             return (
               <Form>
                 <FormSelect
-                  controlId="user-role"
+                  controlId="participant-role"
                   name="role"
                   options={roles}
                   inputGroupPrepend={
@@ -117,28 +124,28 @@ const CreateUser = ({onClose}) => {
                   }
                 />
                 <FormInput
-                  controlId="user-name"
-                  label="Username"
+                  controlId="participant-name"
+                  label="Participant Name"
                   name="name"
                   inputGroupPrepend={
-                    <InputGroup.Text id="user-name-prep">@</InputGroup.Text>
+                    <InputGroup.Text id="participant-name-prep">@</InputGroup.Text>
                   }
                 />
                 <Row>
                   <FormInput
                     as={Col}
-                    controlId="user-first-name"
+                    controlId="participant-first-name"
                     label="First name"
                     name="firstName"
                   />
                   <FormInput
                     as={Col}
-                    controlId="user-last-name"
+                    controlId="participant-last-name"
                     label="Last name"
                     name="lastName"
                   />
                 </Row>
-                <FormInput controlId="user-email" label="Email" name="email"/>
+                <FormInput controlId="participant-email" label="Email" name="email"/>
 
                 <FormCheckboxGroup
                   controlId="email-pref"
@@ -147,11 +154,11 @@ const CreateUser = ({onClose}) => {
                   options={emailOptions}
                 />
                 <FormSelect
-                  controlId="user-institution"
+                  controlId="participant-institution"
                   name="institution"
                   options={institutions}
                   inputGroupPrepend={
-                    <InputGroup.Text id="user-inst-prep">
+                    <InputGroup.Text id="participant-inst-prep">
                       Institution
                     </InputGroup.Text>
                   }
@@ -168,7 +175,7 @@ const CreateUser = ({onClose}) => {
                       !(formik.isValid && formik.dirty) || formik.isSubmitting
                     }
                   >
-                    Create User
+                    Create Participant
                   </Button>
                 </Modal.Footer>
               </Form>
@@ -180,4 +187,4 @@ const CreateUser = ({onClose}) => {
   );
 };
 
-export default CreateUser;
+export default CreateParticipant;

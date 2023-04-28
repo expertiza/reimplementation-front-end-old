@@ -16,6 +16,14 @@ export const RemoveUserIcon = () => {
     />
   );
 };
+export const RemoveParticipantIcon = () => {
+  return (
+    <img
+      src={process.env.PUBLIC_URL + "/assets/icons/participant-remove.svg"}
+      alt="remove"
+    />
+  );
+};
 
 export const AddUserIcon = () => {
   return (
