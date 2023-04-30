@@ -130,6 +130,10 @@ const Courses = () => {
           {
             src: `${process.env.PUBLIC_URL}/assets/actions/360-dashboard-24.png`,
             alt: 'Dashboard'
+          },
+          {
+            src: `${process.env.PUBLIC_URL}/assets/actions/glyphicon-alt-list.png`,
+            alt: 'View aggregated teammate & meta reviews'
           }
         ];
     

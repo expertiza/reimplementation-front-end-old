@@ -48,7 +48,7 @@ const CardList = ({ courses,columnKeys,actions}) => {
       <div className="course-list p-3">
         <div className="sort-controls">
 
-          <label htmlFor="search-term">Search:</label>
+          <label htmlFor="search-term">Search:&nbsp;</label>
           <input
             id="search-term"
             type="text"

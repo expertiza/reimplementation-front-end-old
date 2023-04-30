@@ -15,16 +15,8 @@ import CardList  from "./CardList";
 
     const actionsAssign = [
       {
-        src: `${process.env.PUBLIC_URL}/assets/actions/add-assignment-24.png`,
-        alt: 'Add Assignment'
-      },
-      {
         src: `${process.env.PUBLIC_URL}/assets/actions/add-participant-24.png`,
         alt: 'Add Participant'
-      },
-      {
-        src: `${process.env.PUBLIC_URL}/assets/actions/add-ta-24.png`,
-        alt: 'Add TA'
       },
       {
         src: `${process.env.PUBLIC_URL}/assets/actions/Copy-icon-24.png`,
@@ -43,8 +35,24 @@ import CardList  from "./CardList";
         alt: 'Create Teams'
       },
       {
-        src: `${process.env.PUBLIC_URL}/assets/actions/360-dashboard-24.png`,
-        alt: 'Dashboard'
+        src: `${process.env.PUBLIC_URL}/assets/actions/remove-from-course-24.png`,
+        alt: 'Remove from Course'
+      },
+      {
+        src: `${process.env.PUBLIC_URL}/assets/actions/assign-reviewers-24.png`,
+        alt: 'Assign Reviewers'
+      },
+      {
+        src: `${process.env.PUBLIC_URL}/assets/actions/List-submisstions-24.png`,
+        alt: 'List Submissions'
+      },
+      {
+        src: `${process.env.PUBLIC_URL}/assets/actions/view-scores-24.png`,
+        alt: 'View Scores'
+      },
+      {
+        src: `${process.env.PUBLIC_URL}/assets/actions/view-review-report-24.png`,
+        alt: 'View Reports'
       }
     ];
 
@@ -77,7 +85,7 @@ import CardList  from "./CardList";
             
           <div className="card-body row" onClick={() => toggleAssignments(course.assignments)} >
           {keys.map((key, index) => (
-        <div key={index} className="card-text col" style={{ wordWrap: 'break-word', borderRight: '1px solid black' }}>
+        <div key={index} className="card-text col" style={{ wordWrap: 'break-word' }}>
           {course[key]}
         </div>
       ))}
